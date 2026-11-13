@@ -64,3 +64,8 @@ A missing survey is treated as missing data. It is not treated as a low engageme
 ## Human-centered operating principle
 
 A priority band is a prompt to consider whether a supportive conversation may be useful. It is not a decision or instruction about an employee. Human context, consent, and appropriate organizational process must take precedence over the score.
+
+
+## Verification snapshot
+
+Manual local verification on 13 November 2026 confirmed that the eight documented API smoke-test endpoints returned HTTP 200. Invalid intervention requests and invalid priority values were rejected, pagination returned distinct records, low/high priority filters returned matching records, and dashboard totals matched the established baseline. The frontend build and eight tabs were also checked. This is a manual verification snapshot; no automated backend test suite is currently configured. See [TESTING.md](TESTING.md) for details and limitations.

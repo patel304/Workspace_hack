@@ -69,3 +69,10 @@ No. The intended workflow is human review and supportive intervention. The curre
 
 **What are the current limitations?**  
 Synthetic data, no authentication/role access controls, limited intervention workflow, basic system-health checks, and no real-world validation.
+
+
+## Testing evidence to mention to judges
+
+You can accurately say: "We manually smoke-tested all eight API endpoints; each returned HTTP 200. We also checked invalid-input handling, pagination, priority filters, intervention history, and dashboard consistency. The frontend production build and all eight tabs were checked."
+
+Be transparent that the backend does not currently have an automated test script configured. Do not describe these manual checks as a complete automated test suite, load test, security audit, or production validation. The detailed record is in [TESTING.md](TESTING.md).

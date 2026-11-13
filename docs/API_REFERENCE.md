@@ -72,3 +72,15 @@ Returns orphan/reference checks, missing survey count, invalid termination-date 
 ## Error behavior
 
 Routes return JSON error messages and HTTP error status codes for validation or server failures. The API currently does not implement authentication or role-based authorization.
+
+
+## Validation examples verified locally
+
+The following behaviors were manually verified on 13 November 2026:
+
+- `POST /interventions` with an empty JSON body returns HTTP `400` with a required-fields message.
+- `POST /interventions` with a nonexistent employee ID returns HTTP `404` with `Employee not found`.
+- `GET /retention/priorities?priority=invalid` returns HTTP `400` and explains that priority must be `low`, `medium`, or `high`.
+- Pagination and `low`/`high` priority filters returned the expected page sizes and matching priority values in the tested requests.
+
+See [TESTING.md](TESTING.md) for the complete manual verification record.

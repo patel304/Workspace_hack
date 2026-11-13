@@ -198,21 +198,11 @@ These metrics are from the project's synthetic dataset and the selected evaluati
 - Keep `.env`, database credentials, and local database files out of version control.
 - Never rerun generators or migration scripts against a populated database unless their behavior has been reviewed and a separate backup/restore plan exists.
 
-## Verification status at documentation time
+## Testing and verification
 
-Observed during the current development session:
+Manual verification was completed locally on 13 November 2026. All eight API smoke-test endpoints returned HTTP 200. Additional checks passed for invalid intervention payloads (400), invalid employee IDs (404), invalid priority filters (400), pagination across distinct pages, low/high priority filtering, intervention-history retrieval, and dashboard baseline consistency. The frontend production build and all eight application tabs were also checked; the intervention workflow and System Health screen were manually reviewed.
 
-- Frontend production build passed after the updated `App.jsx` and `Interventions.jsx` were installed.
-- Dashboard, employee, retention, analytics, model metrics, data-quality, and system-health screens were visually reviewed from browser screenshots.
-- Analytics and model-metrics API endpoints returned JSON.
-- Retention-priority pagination was verified with two different pages of 10 low-priority employees.
-- Intervention creation was confirmed to persist after a browser refresh.
-
-Not yet established by those checks:
-
-- A complete automated backend test suite run against the current MySQL setup.
-- Full end-to-end regression testing of every frontend interaction.
-- Production deployment, authentication/authorization, audit controls, and privacy/security review.
+The backend currently has no configured automated test script (`backend/package.json` exposes `start` and `dev` only). These results are manual checks, not a complete automated regression, load, security, or production-readiness test. See [docs/TESTING.md](docs/TESTING.md) for the detailed test cases, observed counts, reproduction commands, and remaining coverage gaps.
 
 ## Known limitations / future work
 
