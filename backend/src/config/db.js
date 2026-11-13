@@ -1,12 +1,17 @@
 
-const Database = require("better-sqlite3");
-const path = require("path");
+require("dotenv").config();
 
-const db = new Database(
-    path.join(__dirname, "../../../database/workforce.db")
-);
+const mysql = require("mysql2/promise");
 
-db.pragma("foreign_keys = ON");
-db.pragma("journal_mode = WAL");
+const db = mysql.createPool({
+  host: process.env.MYSQL_HOST || "127.0.0.1",
+  port: Number(process.env.MYSQL_PORT || 3306),
+  user: process.env.MYSQL_USER || "root",
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE || "workforce_retention",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
 module.exports = db;
