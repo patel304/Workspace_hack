@@ -14,12 +14,13 @@ function getEmployeeSignals() {
             t.team_name,
 
             (
-                SELECT AVG(ts.tenure_months)
-                FROM tenure_snapshots ts
-                WHERE ts.employee_id = e.employee_id
-                AND ts.snapshot_date <= ?
+              SELECT ts.tenure_months
+              FROM tenure_snapshots ts
+              WHERE ts.employee_id = e.employee_id
+              AND ts.snapshot_date <= ?
+              ORDER BY ts.snapshot_date DESC
+              LIMIT 1
             ) AS tenure_months,
-
             (
                 SELECT es.engagement_score
                 FROM engagement_surveys es
@@ -90,17 +91,19 @@ function calculatePriority(employee) {
     reasons.push("Elevated weekly workload");
   }
 
-  if (!employee.last_promotion) {
-    score += 15;
-    reasons.push("No promotion recorded before cutoff");
-  } else {
-    const monthsSincePromotion =
-      (new Date(CUTOFF) - new Date(employee.last_promotion)) /
-      (1000 * 60 * 60 * 24 * 30.44);
-
-    if (monthsSincePromotion >= 24) {
+  if (employee.tenure_months >= 24) {
+    if (!employee.last_promotion) {
       score += 15;
-      reasons.push("Long time since last promotion");
+      reasons.push("No promotion recorded during extended tenure");
+    } else {
+      const monthsSincePromotion =
+        (new Date(CUTOFF) - new Date(employee.last_promotion)) /
+        (1000 * 60 * 60 * 24 * 30.44);
+  
+      if (monthsSincePromotion >= 24) {
+        score += 15;
+        reasons.push("Long time since last promotion");
+      }
     }
   }
 
