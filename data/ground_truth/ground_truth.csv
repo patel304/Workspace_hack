@@ -1,0 +1,5 @@
+case_id,issue_type,expected_decision,description
+"ANOM-001","future_information_leak","reject_feature","Feature timestamp occurs after prediction cutoff"
+"ANOM-002","missing_survey_negative","preserve_missing","Missing survey must not be treated as negative engagement"
+"ANOM-003","outcome_date_mismatch","flag_exception","Attrition label conflicts with termination date"
+"ANOM-004","unexplained_individual_score","require_human_review","Individual score requires explanation and human review"
